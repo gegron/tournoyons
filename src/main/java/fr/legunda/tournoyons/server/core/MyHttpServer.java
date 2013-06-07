@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 @SuppressWarnings(value = "unused")
 public class MyHttpServer {
 
-    private final static int PORT = 8080;
+    private final static String PORT = System.getenv("PORT");
 
     /**
      * Cette méthode permet de lancer notre serveur
@@ -20,7 +20,7 @@ public class MyHttpServer {
      */
     public static void main(String[] args) throws IOException {
         //Creation d'un serveur HTTP
-        HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.valueOf(PORT)), 0);
 
         server.createContext("/", new MainHandler());
 
