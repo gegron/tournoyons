@@ -45,7 +45,12 @@ public class MainHandler implements HttpHandler {
             callUrl(url);
         }
 
-        byte[] response = "".getBytes();
+        String msg = "";
+        if (parameters.isEmpty()) {
+            msg = "TEST";
+        }
+
+        byte[] response = msg.getBytes();
         httpExchange.sendResponseHeaders(200, response.length);
         httpExchange.getResponseBody().write(response);
         httpExchange.close();
