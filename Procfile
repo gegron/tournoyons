@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* MyHttpServer
+web:    java -cp target/classes:target/dependency/* fr.legunda.tournoyons.server.core.MyHttpServer
