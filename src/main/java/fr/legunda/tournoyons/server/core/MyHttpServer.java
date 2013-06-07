@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 @SuppressWarnings(value = "unused")
 public class MyHttpServer {
 
-    private final static int PORT = 80;
+    private final static int PORT = 8080;
 
     /**
      * Cette méthode permet de lancer notre serveur
