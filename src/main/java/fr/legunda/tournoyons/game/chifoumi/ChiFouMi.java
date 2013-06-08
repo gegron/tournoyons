@@ -42,8 +42,8 @@ public class ChiFouMi {
                 .toString();
     }
 
-    private String makeCouple(Parameter key, String value) {
-        return String.format("%s=%s", key, value);
+    private String makeCouple(Parameter param, String value) {
+        return String.format("%s=%s", param.getName(), value);
     }
 
     public String getRandomValue() {

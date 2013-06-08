@@ -46,7 +46,7 @@ public class ChiFouMiTest {
         String result = chiFouMiSpy.play(moveId);
 
         // Then
-        assertThat(result).isEqualTo("http://www.example.com?GAME=AZERTY&MOVEID=123&VALUE=2");
+        assertThat(result).isEqualTo("http://www.example.com?Game=AZERTY&MoveId=123&Value=2");
     }
 
 
