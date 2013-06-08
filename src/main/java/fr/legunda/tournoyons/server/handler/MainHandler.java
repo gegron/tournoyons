@@ -61,6 +61,8 @@ public class MainHandler implements HttpHandler {
         BufferedReader buffer = null;
 
         try {
+            LOGGER.info(String.format("Call url: [%s]", urlString));
+
             URL url = new URL(urlString);
             URLConnection urlConnection = url.openConnection();
 
@@ -71,7 +73,7 @@ public class MainHandler implements HttpHandler {
                 result.append(inputLine);
             }
         } catch (Exception e) {
-            LOGGER.error("Unable to call random service.");
+            LOGGER.error(String.format("Unable to call url [%s], cause: [%s].", urlString, e.getMessage()));
         } finally {
             if (buffer != null) {
                 try {
