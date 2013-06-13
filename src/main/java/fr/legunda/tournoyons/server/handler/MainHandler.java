@@ -49,6 +49,16 @@ public class MainHandler implements HttpHandler {
 
                         chiFouMi = chiFouMiController.get(gameId);
 
+                        // Fin de la partie
+                        if (parameters.containsKey(STATUS)) {
+                            Integer status = Integer.valueOf(parameters.get(STATUS));
+
+                            if (status != 0) {
+                                chiFouMiController.remove(gameId);
+                                return;
+                            }
+                        }
+
                         String url = chiFouMi.play(parameters.get(MOVEID));
                         callUrl(url);
                     }
@@ -65,8 +75,17 @@ public class MainHandler implements HttpHandler {
 
                         ticTacToc = ticTacTocController.get(gameId);
 
-                        String url;
+                        // Fin de la partie
+                        if (parameters.containsKey(STATUS)) {
+                            Integer status = Integer.valueOf(parameters.get(STATUS));
 
+                            if (status != 0) {
+                                ticTacTocController.remove(gameId);
+                                return;
+                            }
+                        }
+
+                        String url;
                         if(Integer.valueOf(parameters.get(TURN)) == 1) {
                             url = ticTacToc.playFirst(parameters.get(MOVEID));
                         }
