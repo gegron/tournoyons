@@ -20,7 +20,7 @@ public class ChiFouMi {
 
     Logger LOGGER = LoggerFactory.getLogger(ChiFouMi.class);
 
-    public final String name = "Rochambeau";
+    public static final String name = "Rochambeau";
 
     public final String idGame;
 

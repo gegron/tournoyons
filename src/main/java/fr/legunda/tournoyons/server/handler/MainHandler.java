@@ -3,6 +3,7 @@ package fr.legunda.tournoyons.server.handler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import fr.legunda.tournoyons.game.chifoumi.ChiFouMi;
+import fr.legunda.tournoyons.game.tictactoc.TicTacToc;
 import fr.legunda.tournoyons.server.core.HttpParams;
 import fr.legunda.tournoyons.server.core.MapParam;
 import org.slf4j.Logger;
@@ -24,6 +25,8 @@ public class MainHandler implements HttpHandler {
 
     private Map<String, ChiFouMi> chiFouMiController = new HashMap<>();
 
+    private Map<String, TicTacToc> ticTacTocController = new HashMap<>();
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         LOGGER.info(String.format("Reception: %s", httpExchange.getRequestURI().toString()));
@@ -31,18 +34,51 @@ public class MainHandler implements HttpHandler {
         MapParam parameters = HttpParams.getParameters(httpExchange.getRequestURI().getQuery());
 
         // Si jeu existant, je le récupère sinon je le crée
-        if(parameters.containsKey(GAME)) {
-            String gameId = parameters.get(GAME);
-            ChiFouMi chiFouMi;
+        if (parameters.containsKey(SET)) {
+            String set = parameters.get(SET);
 
-            if (!chiFouMiController.containsKey(gameId)) {
-                chiFouMiController.put(gameId, new ChiFouMi(gameId, parameters.get(OPPONENT), parameters.get(REFEREE)));
+            switch (set) {
+                case ChiFouMi.name:
+                    if(parameters.containsKey(GAME)) {
+                        String gameId = parameters.get(GAME);
+                        ChiFouMi chiFouMi;
+
+                        if (!chiFouMiController.containsKey(gameId)) {
+                            chiFouMiController.put(gameId, new ChiFouMi(gameId, parameters.get(OPPONENT), parameters.get(REFEREE)));
+                        }
+
+                        chiFouMi = chiFouMiController.get(gameId);
+
+                        String url = chiFouMi.play(parameters.get(MOVEID));
+                        callUrl(url);
+                    }
+
+                    break;
+                case TicTacToc.name:
+                    if(parameters.containsKey(GAME)) {
+                        String gameId = parameters.get(GAME);
+                        TicTacToc ticTacToc;
+
+                        if (!ticTacTocController.containsKey(gameId)) {
+                            ticTacTocController.put(gameId, new TicTacToc(gameId, parameters.get(OPPONENT), parameters.get(REFEREE), parameters.get(TURN), parameters.get(TRAY)));
+                        }
+
+                        ticTacToc = ticTacTocController.get(gameId);
+
+                        String url;
+
+                        if(Integer.valueOf(parameters.get(TURN)) % 2 == 1) {
+                            url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE2));
+                        }
+                        else {
+                            url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE1));
+                        }
+
+                        callUrl(url);
+                    }
+
+                    break;
             }
-
-            chiFouMi = chiFouMiController.get(gameId);
-
-            String url = chiFouMi.play(parameters.get(MOVEID));
-            callUrl(url);
         }
 
         String msg = "";
