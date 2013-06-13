@@ -130,9 +130,7 @@ public class Sequence {
     }
 
     private void computeWinner() {
-        int i = 4;
-
-        do {
+        for (int i = 0; i < 9; i++) {
             List<Integer> cellPlayer1 = retrieveCellOwnedByPlayer(Player.PLAYER1, i);
             List<Integer> cellPlayer2 = retrieveCellOwnedByPlayer(Player.PLAYER2, i);
 
@@ -141,12 +139,10 @@ public class Sequence {
                     winner = Player.PLAYER1;
                 }
                 if (ListUtils.intersection(winSequence, cellPlayer2).size() == 3) {
-                    winner = Player.PLAYER1;
+                    winner = Player.PLAYER2;
                 }
             }
-            i++;
         }
-        while (i > 9 && winner == null);
     }
 
     private List<Integer> retrieveCellOwnedByPlayer(Player player, final int turn) {

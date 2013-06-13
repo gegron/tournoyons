@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Date;
 
 import static fr.legunda.tournoyons.game.tictactoc.Sequence.Player.PLAYER1;
+import static fr.legunda.tournoyons.game.tictactoc.Sequence.Player.PLAYER2;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class SequenceTest {
@@ -143,5 +144,38 @@ public class SequenceTest {
 
         System.out.println(end.getTime() - start.getTime());
     }
+
+    @Test
+    public void should_compute_winner() {
+        // Given
+        Sequence sequence = new Sequence();
+
+        sequence.put(1, 2, 3, 5, 4, 8);
+
+        // When
+        Sequence.Player result = sequence.getWinner();
+
+        // Then
+        assertThat(result).isEqualTo(PLAYER2);
+    }
+
+
+    @Test
+    public void should_play() {
+        // Given
+        Sequence sequence = new Sequence();
+
+        // When
+        sequence.put(1);
+        sequence.put(2);
+        sequence.put(3);
+        sequence.put(5);
+
+        Integer bestMove5 = sequence.selectBestNextMove(PLAYER2);
+        sequence.put(bestMove5);
+        System.out.println(bestMove5);
+
+    }
+
 
 }
