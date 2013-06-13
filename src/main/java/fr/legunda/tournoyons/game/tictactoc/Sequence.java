@@ -141,6 +141,9 @@ public class Sequence {
                 if (ListUtils.intersection(winSequence, cellPlayer2).size() == 3) {
                     winner = Player.PLAYER2;
                 }
+                if (winner != null) {
+                    return;
+                }
             }
         }
     }
