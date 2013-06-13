@@ -55,6 +55,9 @@ public class MainHandler implements HttpHandler {
 
                             if (status != 0) {
                                 chiFouMiController.remove(gameId);
+
+                                LOGGER.info(String.format("End of the chiFouMi game: %s", gameId));
+
                                 return;
                             }
                         }
@@ -81,6 +84,9 @@ public class MainHandler implements HttpHandler {
 
                             if (status != 0) {
                                 ticTacTocController.remove(gameId);
+
+                                LOGGER.info(String.format("End of the ticTacToc game: %s", gameId));
+
                                 return;
                             }
                         }
