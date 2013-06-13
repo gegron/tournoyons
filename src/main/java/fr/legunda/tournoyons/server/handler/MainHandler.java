@@ -57,13 +57,12 @@ public class MainHandler implements HttpHandler {
                                 chiFouMiController.remove(gameId);
 
                                 LOGGER.info(String.format("End of the chiFouMi game: %s", gameId));
-
-                                return;
+                            }
+                            else {
+                                String url = chiFouMi.play(parameters.get(MOVEID));
+                                callUrl(url);
                             }
                         }
-
-                        String url = chiFouMi.play(parameters.get(MOVEID));
-                        callUrl(url);
                     }
 
                     break;
@@ -86,23 +85,22 @@ public class MainHandler implements HttpHandler {
                                 ticTacTocController.remove(gameId);
 
                                 LOGGER.info(String.format("End of the ticTacToc game: %s", gameId));
+                            }
+                            else {
+                                String url;
+                                if(Integer.valueOf(parameters.get(TURN)) == 1) {
+                                    url = ticTacToc.playFirst(parameters.get(MOVEID));
+                                }
+                                else if(Integer.valueOf(parameters.get(TURN)) % 2 == 1) {
+                                    url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE2));
+                                }
+                                else {
+                                    url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE1));
+                                }
 
-                                return;
+                                callUrl(url);
                             }
                         }
-
-                        String url;
-                        if(Integer.valueOf(parameters.get(TURN)) == 1) {
-                            url = ticTacToc.playFirst(parameters.get(MOVEID));
-                        }
-                        else if(Integer.valueOf(parameters.get(TURN)) % 2 == 1) {
-                            url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE2));
-                        }
-                        else {
-                            url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE1));
-                        }
-
-                        callUrl(url);
                     }
 
                     break;
