@@ -64,6 +64,8 @@ public class TicTacToc {
 
         Integer nextMove = this.tray.selectBestNextMove(me);
 
+        this.tray.put(nextMove);
+
         return new StringBuilder(refereeUrl).append("?")
                 .append(makeCouple(GAME, gameId)).append("&")
                 .append(makeCouple(MOVEID, moveId)).append("&")

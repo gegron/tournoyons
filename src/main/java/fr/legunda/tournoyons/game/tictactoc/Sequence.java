@@ -182,7 +182,9 @@ public class Sequence {
 
     public void put(int... args) {
         for (int i = 0; i < args.length; i++) {
-            gameSequence.add(args[i]);
+            if(!gameSequence.contains(args[i])) {
+                gameSequence.add(args[i]);
+            }
         }
     }
 
