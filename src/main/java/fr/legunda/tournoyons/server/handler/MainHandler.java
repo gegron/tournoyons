@@ -67,7 +67,10 @@ public class MainHandler implements HttpHandler {
 
                         String url;
 
-                        if(Integer.valueOf(parameters.get(TURN)) % 2 == 1) {
+                        if(Integer.valueOf(parameters.get(TURN)) == 1) {
+                            url = ticTacToc.playFirst(parameters.get(MOVEID));
+                        }
+                        else if(Integer.valueOf(parameters.get(TURN)) % 2 == 1) {
                             url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE2));
                         }
                         else {

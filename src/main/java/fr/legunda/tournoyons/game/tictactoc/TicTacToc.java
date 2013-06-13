@@ -59,8 +59,15 @@ public class TicTacToc {
         }
     }
 
+    public String playFirst(String moveId) {
+        return play(moveId, null);
+    }
+
+
     public String play(String moveId, String lastOpponentMove) {
-        this.tray.put(Integer.valueOf(lastOpponentMove));
+        if (lastOpponentMove != null) {
+            this.tray.put(Integer.valueOf(lastOpponentMove));
+        }
 
         Integer nextMove = this.tray.selectBestNextMove(me);
 
