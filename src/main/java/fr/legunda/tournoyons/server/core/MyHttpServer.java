@@ -20,7 +20,17 @@ public class MyHttpServer {
      */
     public static void main(String[] args) throws IOException {
         //Creation d'un serveur HTTP
-        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.valueOf(PORT)), 0);
+        Integer port;
+
+        if (PORT == null) {
+            port = 8080;
+        }
+        else {
+            port = Integer.valueOf(PORT);
+
+        }
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         server.createContext("/", new MainHandler());
 

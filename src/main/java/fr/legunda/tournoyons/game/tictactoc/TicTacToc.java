@@ -20,7 +20,7 @@ public class TicTacToc {
 
     public final static List<List<Integer>> winSequence = new ArrayList<>();
 
-    public final static String name = "TicTacToc";
+    public final static String name = "TicTacToe";
 
     public Player me;
 
