@@ -60,7 +60,9 @@ public class TicTacToc {
     }
 
     public String playFirst(String moveId) {
-        return play(moveId, null);
+        this.tray.put(1);
+
+        return buildUrl(moveId, 1);
     }
 
 
@@ -73,6 +75,10 @@ public class TicTacToc {
 
         this.tray.put(nextMove);
 
+        return buildUrl(moveId, nextMove);
+    }
+
+    private String buildUrl(String moveId, Integer nextMove) {
         return new StringBuilder(refereeUrl).append("?")
                 .append(makeCouple(GAME, gameId)).append("&")
                 .append(makeCouple(MOVEID, moveId)).append("&")
