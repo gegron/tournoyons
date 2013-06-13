@@ -95,7 +95,7 @@ public class SequenceTest {
         // Given
         Sequence sequence = new Sequence();
 
-        sequence.put(1, 2, 3, 4, 5 ,6 , 7, 8);
+        sequence.put(1, 2, 4, 3, 5 ,6 , 8, 7);
 
         // When
         Integer result = sequence.selectBestNextMove(PLAYER1);
