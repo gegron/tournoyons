@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* fr.legunda.tournoyons.server.core.MyHttpServer
+web:    java -Xms128m -Xmx512m -cp target/classes:target/dependency/* fr.legunda.tournoyons.server.core.MyHttpServer
