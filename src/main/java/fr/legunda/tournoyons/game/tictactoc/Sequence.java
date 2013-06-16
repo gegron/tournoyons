@@ -32,20 +32,20 @@ public class Sequence {
      */
     public Sequence(String tray) {
         for (int i = 0; i < tray.length(); i++) {
-            if(tray.charAt(i) == '1' || tray.charAt(i) == '2') {
+            if (tray.charAt(i) == '1' || tray.charAt(i) == '2') {
                 put(i + 1);
             }
         }
     }
 
     public Integer selectBestNextMove(Player me) {
-        if (this.getGameSequence().size() == 9) {
+        if (getGameSequence().size() == 9) {
             return null;
         }
 
         Sequence bestSequence = selectBestSequenceWithMinMaxAlgo(me);
 
-        return bestSequence.getGameSequence().get(this.getGameSequence().size());
+        return bestSequence.getGameSequence().get(getGameSequence().size());
     }
 
     /**
@@ -55,11 +55,12 @@ public class Sequence {
      * @return
      */
     private Sequence selectBestSequenceWithMinMaxAlgo(Player me) {
-        if (this.isEnded()) {
-            this.computePoint(me);
+        if (isEnded()) {
+            computePoint(me);
 
             return this;
-        } else {
+        }
+        else {
             List<Sequence> nextSequences = Lists.newArrayList();
 
             for (Sequence sequence : sequenceGenerator.generateNextMove(this)) {
@@ -71,9 +72,10 @@ public class Sequence {
     }
 
     private Sequence selectMinMax(List<Sequence> sequences, Player me) {
-        if (this.getLastPlayerToPlayer() == Player.opponent(me)) {
+        if (getLastPlayerToPlayer() == Player.opponent(me)) {
             return selectMax(sequences);
-        } else {
+        }
+        else {
             return selectMin(sequences);
         }
     }
@@ -97,28 +99,19 @@ public class Sequence {
     }
 
     private void computePoint(Player me) {
-        if (this.getWinner() == null) {
-            this.points = 0;
-        } else if (this.getWinner() == me) {
-            this.points = 10 - this.gameSequence.size();
-        } else {
-            this.points = -10 + this.gameSequence.size();
+        if (getWinner() == null) {
+            points = 0;
+        }
+        else if (getWinner() == me) {
+            points = 10 - gameSequence.size();
+        }
+        else {
+            points = -10 + gameSequence.size();
         }
     }
 
     private boolean isEnded() {
-        return this.gameSequence.size() == 9 || this.getWinner() != null;
-    }
-
-    /**
-     * To get next player, we get size list of gameSequence, if size is even, next player is firstPlayer else it's his opponent.
-     */
-    private Player getNextPlayerToPlay() {
-        if (gameSequence.size() % 2 == 0) {
-            return firstPlayer;
-        } else {
-            return Player.opponent(firstPlayer);
-        }
+        return gameSequence.size() == 9 || getWinner() != null;
     }
 
     public Player getWinner() {
@@ -181,7 +174,7 @@ public class Sequence {
 
     public void put(int... args) {
         for (int i = 0; i < args.length; i++) {
-            if(!gameSequence.contains(args[i])) {
+            if (!gameSequence.contains(args[i])) {
                 gameSequence.add(args[i]);
             }
         }
@@ -195,7 +188,8 @@ public class Sequence {
     public Player getLastPlayerToPlayer() {
         if (gameSequence.size() % 2 == 1) {
             return firstPlayer;
-        } else {
+        }
+        else {
             return Player.opponent(firstPlayer);
         }
     }
@@ -210,7 +204,8 @@ public class Sequence {
         public static Player opponent(Player player) {
             if (player == PLAYER1) {
                 return PLAYER2;
-            } else {
+            }
+            else {
                 return PLAYER1;
             }
         }
