@@ -1,22 +1,20 @@
 package fr.legunda.tournoyons.game.chifoumi;
 
 import com.google.common.annotations.VisibleForTesting;
+import fr.legunda.tournoyons.game.Game;
+import fr.legunda.tournoyons.util.UrlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
 
 import static fr.legunda.tournoyons.server.core.MapParam.Parameter;
-import static fr.legunda.tournoyons.server.core.MapParam.Parameter.GAME;
-import static fr.legunda.tournoyons.server.core.MapParam.Parameter.MOVEID;
-import static fr.legunda.tournoyons.server.core.MapParam.Parameter.VALUE;
+import static fr.legunda.tournoyons.server.core.MapParam.Parameter.*;
+import static fr.legunda.tournoyons.util.UrlUtils.callUrl;
+import static fr.legunda.tournoyons.util.UrlUtils.makeCouple;
 
-public class ChiFouMi {
+public class ChiFouMi implements Game {
 
     Logger LOGGER = LoggerFactory.getLogger(ChiFouMi.class);
 
@@ -40,10 +38,6 @@ public class ChiFouMi {
                 .append(makeCouple(MOVEID, moveId)).append("&")
                 .append(makeCouple(VALUE, getRandomValue()))
                 .toString();
-    }
-
-    private String makeCouple(Parameter param, String value) {
-        return String.format("%s=%s", param.getName(), value);
     }
 
     public String getRandomValue() {
@@ -74,36 +68,11 @@ public class ChiFouMi {
 
     @VisibleForTesting
     String getRandomValueFromRandomService() {
-        StringBuilder result = new StringBuilder();
-        BufferedReader buffer = null;
+        URLConnection urlConnection = callUrl("http://www.random.org/integers/?num=1&min=1&max=3&col=1&base=10&format=plain&rnd=new");
 
-        try {
-            URL url = new URL("http://www.random.org/integers/?num=1&min=1&max=3&col=1&base=10&format=plain&rnd=new");
-            URLConnection urlConnection = url.openConnection();
+        String result = UrlUtils.getContent(urlConnection);
 
-            buffer = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = buffer.readLine()) != null) {
-                result.append(inputLine);
-            }
-        } catch (Exception e) {
-            LOGGER.error("Unable to call random service.");
-        } finally {
-            if (buffer != null) {
-                try {
-                    buffer.close();
-                } catch (IOException e) {
-                    LOGGER.error("Unable to close buffer.");
-                }
-            }
-        }
-
-        if (result.length() == 0) {
-            return null;
-        }
-
-        return result.toString();
+        return result.length() == 0 ? null : result;
     }
 
 }

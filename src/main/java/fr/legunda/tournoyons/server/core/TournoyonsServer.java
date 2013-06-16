@@ -8,33 +8,26 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 @SuppressWarnings(value = "unused")
-public class MyHttpServer {
+public class TournoyonsServer {
 
-    private final static String PORT = System.getenv("PORT");
+    private static final String PORT = System.getenv("PORT");
+
+    private static final int DEFAULT_PORT = 8080;
 
     /**
-     * Cette méthode permet de lancer notre serveur
+     * Server launcher
      *
      * @param args
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        //Creation d'un serveur HTTP
-        Integer port;
-
-        if (PORT == null) {
-            port = 8080;
-        }
-        else {
-            port = Integer.valueOf(PORT);
-
-        }
-
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(getEnvPortIfExist()), 0);
 
         server.createContext("/", new MainHandler());
-
-        //Demarrage du serveur
         server.start();
+    }
+
+    private static Integer getEnvPortIfExist() {
+        return PORT == null ? DEFAULT_PORT : Integer.valueOf(PORT);
     }
 }
