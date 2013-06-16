@@ -14,7 +14,7 @@ import static fr.legunda.tournoyons.game.tictactoc.Sequence.Player.PLAYER2;
 import static fr.legunda.tournoyons.server.core.MapParam.Parameter.*;
 import static fr.legunda.tournoyons.util.UrlUtils.makeCouple;
 
-public class TicTacToc implements Game {
+public class TicTacToc extends Game {
     Logger LOGGER = LoggerFactory.getLogger(TicTacToc.class);
 
     public final static List<List<Integer>> winSequence = new ArrayList<>();

@@ -9,12 +9,11 @@ import org.slf4j.LoggerFactory;
 import java.net.URLConnection;
 import java.util.Random;
 
-import static fr.legunda.tournoyons.server.core.MapParam.Parameter;
 import static fr.legunda.tournoyons.server.core.MapParam.Parameter.*;
 import static fr.legunda.tournoyons.util.UrlUtils.callUrl;
 import static fr.legunda.tournoyons.util.UrlUtils.makeCouple;
 
-public class ChiFouMi implements Game {
+public class ChiFouMi extends Game {
 
     Logger LOGGER = LoggerFactory.getLogger(ChiFouMi.class);
 

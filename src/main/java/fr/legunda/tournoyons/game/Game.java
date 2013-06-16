@@ -1,4 +1,4 @@
 package fr.legunda.tournoyons.game;
 
-public interface Game {
+public abstract class Game {
 }
