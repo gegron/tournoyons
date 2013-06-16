@@ -7,6 +7,7 @@ import fr.legunda.tournoyons.game.chifoumi.ChiFouMi;
 import fr.legunda.tournoyons.game.tictactoc.TicTacToc;
 import fr.legunda.tournoyons.server.core.HttpParams;
 import fr.legunda.tournoyons.server.core.MapParam;
+import fr.legunda.tournoyons.util.UrlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +87,7 @@ public class MainHandler implements HttpHandler {
                         url = ticTacToc.play(parameters.get(MOVEID), parameters.get(MOVE1));
                     }
 
-                    callUrl(url);
+                    String result = UrlUtils.getContent(callUrl(url));
                 }
             }
         }
@@ -112,7 +113,8 @@ public class MainHandler implements HttpHandler {
                 }
                 else {
                     String url = chiFouMi.play(parameters.get(MOVEID));
-                    callUrl(url);
+
+                    UrlUtils.getContent(callUrl(url));
                 }
             }
         }
