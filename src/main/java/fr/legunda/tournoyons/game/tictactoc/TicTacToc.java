@@ -19,11 +19,9 @@ public class TicTacToc extends Game {
 
     public final static List<List<Integer>> winSequence = new ArrayList<>();
 
-    public final static String name = "TicTacToe";
-
-    public Player me;
-
     static {
+        name = "TicTacToe";
+
         winSequence.add(Lists.newArrayList(1, 2, 3));
         winSequence.add(Lists.newArrayList(4, 5, 6));
         winSequence.add(Lists.newArrayList(7, 8, 9));
@@ -34,10 +32,9 @@ public class TicTacToc extends Game {
         winSequence.add(Lists.newArrayList(3, 5, 7));
     }
 
-    private final String gameId;
-    private final String opponent;
-    private final String refereeUrl;
-    private final Sequence tray;
+    public Player me;
+
+    private Sequence tray;
 
     public TicTacToc(String gameId, String opponent, String referee, String turn, String tray) {
         this.gameId = gameId;
@@ -52,27 +49,27 @@ public class TicTacToc extends Game {
         }
 
         if (Integer.valueOf(turn) % 2 == 1) {
-            this.me = PLAYER1;
+            me = PLAYER1;
         }
         else {
-            this.me = PLAYER2;
+            me = PLAYER2;
         }
     }
 
     public String playFirst(String moveId) {
-        this.tray.put(1);
+        tray.put(1);
 
         return buildUrl(moveId, 1);
     }
 
     public String play(String moveId, String lastOpponentMove) {
         if (lastOpponentMove != null) {
-            this.tray.put(Integer.valueOf(lastOpponentMove));
+            tray.put(Integer.valueOf(lastOpponentMove));
         }
 
-        Integer nextMove = this.tray.selectBestNextMove(me);
+        Integer nextMove = tray.selectBestNextMove(me);
 
-        this.tray.put(nextMove);
+        tray.put(nextMove);
 
         return buildUrl(moveId, nextMove);
     }

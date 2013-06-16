@@ -17,23 +17,19 @@ public class ChiFouMi extends Game {
 
     Logger LOGGER = LoggerFactory.getLogger(ChiFouMi.class);
 
-    public static final String name = "Rochambeau";
-
-    public final String idGame;
-
-    public final String idOpponent;
-
-    public final String refereeUrl;
+    static {
+        name = "Rochambeau";
+    }
 
     public ChiFouMi(String idGame, String idOpponent, String refereeUrl) {
-        this.idGame = idGame;
-        this.idOpponent = idOpponent;
+        this.gameId = idGame;
+        this.opponent = idOpponent;
         this.refereeUrl = refereeUrl;
     }
 
     public String play(String moveId) {
         return new StringBuilder(refereeUrl).append("?")
-                .append(makeCouple(GAME, idGame)).append("&")
+                .append(makeCouple(GAME, gameId)).append("&")
                 .append(makeCouple(MOVEID, moveId)).append("&")
                 .append(makeCouple(VALUE, getRandomValue()))
                 .toString();
